@@ -57,9 +57,14 @@ schnell fertig ist.
   **Vor jedem Vorschlag** schaust du in `git status` und `git log` (inkl. geänderter
   Dateien): Was ist schon committet, was ist offen, welche Scopes habe ich bisher benutzt?
   Der Vorschlag beschreibt nur, was wirklich im Diff steckt.
-- **Am Ende einer Sitzung:** Fasse in 3–5 Punkten zusammen, was ich gelernt habe, und
-  ergänze das in `docs/learning-log.md` (Format siehe „Dokumentation“). Hake erledigte
-  Stories in `docs/backlog.md` ab.
+- **Sitzungsziel:** Auf meine erste Nachricht in einer neuen Sitzung schlägst du zuerst
+  ein Ziel für die Sitzung vor (ein Satz), abgeleitet aus `git status`, `git log` und der
+  nächsten offenen Story. Am Ende prüfen wir, ob wir es erreicht haben.
+- **Learning Log nach jeder abgeschlossenen Aufgabe:** Ist eine Aufgabe fertig (Story,
+  Schritt mit Commit, wichtige Entscheidung), prüfst du, ob es einen Lernpunkt gibt, der
+  einer Lerngruppe weiterhilft. Wenn ja, ergänzt du `docs/learning-log.md` und nimmst die
+  Datei in den Commit-Vorschlag auf. Nicht jeder Commit braucht einen Eintrag.
+  Erledigte Stories hakst du in `docs/backlog.md` ab.
 - **Fachbegriffe:** Wenn ein Konzept auftaucht (z. B. Value Object, Port, Dependency
   Inversion, Test Double), erkläre es kurz am konkreten Code und verweise auf eine Quelle.
   Jeder benannte Begriff oder jedes Muster (z. B. Tracer Bullet, SPIDR Interfaces)
@@ -152,36 +157,9 @@ abkürze. TDD ist hier das wichtigste Lernziel.
 - **Continuous Integration** ab Story 0: CircleCI führt bei jedem Push `bundle exec rake`
   aus. Ein roter Build auf `main` hat Vorrang vor allem anderen.
 
-### Ruby-Konventionen
+### Ruby-Konventionen und Design im Kleinen
 
-Nur Entscheidungen, die kein Linter treffen kann:
-
-- **Namespace:** Alles liegt unter `module Buildleafs`.
-- **Eine Klasse pro Datei**, Pfad folgt dem Namen:
-  `Buildleafs::BuildStatus` → `lib/buildleafs/build_status.rb`,
-  Test dazu → `test/buildleafs/build_status_test.rb`.
-- **Laden mit `require_relative`** – kein Autoloader (Zeitwerk), solange es ohne geht.
-- **Tests als `Minitest::Test`-Klassen** mit `test_…`-Methoden, nicht die Spec-DSL.
-- **Value Objects:** noch offen (eigene Klasse oder `Data.define`) – wird in Story 1
-  entschieden, wenn wir Gleichheit (`==`, `eql?`, `hash`) selbst verstanden haben.
-
-### Design im Kleinen
-
-- **Single Level of Abstraction (SLA):** Eine Methode arbeitet auf genau einer
-  Abstraktionsebene – sie erzählt *was* passiert und delegiert das *Wie* an gut benannte
-  Methoden. Wechselt eine Methode zwischen Fachsprache („Status auswerten“) und Details
-  (HTTP-Header, JSON-Schlüssel, Farbwerte), ist das ein Hinweis auf *Extract Method*.
-  Prüfe das in jedem Review und zeig es am konkreten Code.
-  Herkunft: Kent Beck, *Smalltalk Best Practice Patterns* („Composed Method“);
-  Robert C. Martin, *Clean Code*, Kap. 3 („One Level of Abstraction per Function“).
-- **Design Patterns – in Ruby gedacht:** Muster entstehen beim Refactoring, wenn der
-  Code danach verlangt (Simple Design), nicht vorab. Taucht eines auf (z. B. Adapter für
-  CircleCI/Nanoleaf, State für den `BuildTracker`, Strategy, Observer, Null Object),
-  benenne es, zeig die **idiomatische Ruby-Form** (Blöcke/Procs statt
-  Strategy-Klassenhierarchie, Duck Typing statt Interfaces, Module statt abstrakter
-  Basisklassen) und vergleiche sie mit der klassischen Form der Gang of Four.
-  Herkunft: Russ Olsen, *Design Patterns in Ruby*; Joshua Kerievsky, *Refactoring to
-  Patterns*.
+Stehen in `.claude/rules/ruby.md` und werden geladen, sobald wir an Ruby-Dateien arbeiten.
 
 ## Architektur-Ziel (Clean Architecture, entsteht schrittweise)
 
@@ -236,31 +214,9 @@ test/…                      (spiegelt lib/)                  app.rb, config.ru
 
 ## Dokumentation
 
-Jede Information liegt dort, wo man sie später sucht:
-
-| Was | Wohin |
-|---|---|
-| Wie eine Story geschnitten wurde | an der Story in `docs/backlog.md`: *Geschnitten nach: …* (z. B. SPIDR Interfaces) |
-| Entscheidungen mit Tragweite | ADR in `docs/adr/NNNN-<titel>.md` |
-| Was ich gelernt habe | `docs/learning-log.md` |
-| Warum diese eine Änderung | Commit-Body, kurz, mit Verweis (z. B. „Split by SPIDR interfaces, see ADR 0003“) |
-
-**ADRs** im Format von Michael Nygard: Titel, Status, Kontext, Entscheidung,
-Konsequenzen (auf Deutsch). Kriterium: Würde sich in drei Monaten jemand fragen, warum
-das so ist – und wäre es teuer, es rückgängig zu machen? Sprich ADR-würdige
-Entscheidungen von dir aus an. Ein ADR wird nicht geändert, sondern durch ein neues
-ersetzt („Superseded by …“). Ausnahme: sachliche Korrekturen (z. B. falsche Quelle) als
-sichtbares *Erratum* im ADR.
-
-**Learning Log** – Quelle für künftige Projekte und CSD-Lerngruppen. Deshalb so
-schreiben, dass es ohne diese Sitzung verständlich ist. Einträge nach Sitzung, jeder
-Lernpunkt mit:
-
-- **Konzept** (z. B. „SPIDR Interfaces“, „Fake It“, „Value Object“)
-- **Am Beispiel:** was wir hier konkret gemacht haben, mit Commit-Hash oder Datei
-- **Stolperstein:** was schiefging oder überraschte (falls vorhanden)
-- **Quelle** zum Weiterlesen
-- **Frage für die Lerngruppe:** eine offene Frage, über die man diskutieren kann
+Wohin was gehört und wie ADRs und Learning Log aussehen, steht in
+`.claude/rules/documentation.md` (wird geladen, sobald wir an `docs/` oder der README
+arbeiten).
 
 **Das Repo ist öffentlich.** Daraus folgt:
 
@@ -280,26 +236,6 @@ bundle exec ruby -Itest test/…_test.rb  # einzelne Testdatei
 bundle exec puma                      # Web-App (sobald vorhanden)
 ```
 
-## Literatur, auf die du verweisen kannst
+## Literatur
 
-- Kent Beck: *Test-Driven Development by Example*; *Extreme Programming Explained*
-- Sandi Metz: *Practical Object-Oriented Design in Ruby* (POODR); *99 Bottles of OOP*
-- Martin Fowler: *Refactoring* (2. Aufl.)
-- Russ Olsen: *Design Patterns in Ruby*
-- Joshua Kerievsky: *Refactoring to Patterns*
-- Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides („Gang of Four“):
-  *Design Patterns: Elements of Reusable Object-Oriented Software*
-- Kent Beck: *Smalltalk Best Practice Patterns* („Composed Method“)
-- Robert C. Martin: *Clean Code*; *Clean Architecture*
-- Steve Freeman, Nat Pryce: *Growing Object-Oriented Software, Guided by Tests*
-- David Thomas, Andrew Hunt: *The Pragmatic Programmer* (20th Anniversary Edition)
-- Bill Wake: *INVEST in Good Stories, and SMART Tasks*
-  (https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/)
-- Matt Wynne, Aslak Hellesøy: *The Cucumber Book* (2. Aufl.)
-- Michael Nygard: *Documenting Architecture Decisions*
-  (https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
-- Mike Cohn: *SPIDR: Five Simple but Powerful Ways to Split User Stories*
-  (https://www.mountaingoatsoftware.com/blog/five-simple-but-powerful-ways-to-split-user-stories)
-- Richard Lawrence, Peter Green: *The Humanizing Work Guide to Splitting User Stories*
-  (https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
-- Martin Fowler: *BeckDesignRules* (Bliki, https://martinfowler.com/bliki/BeckDesignRules.html)
+Bücher und Artikel für Verweise stehen in `docs/literature.md`. Neue Quellen dort ergänzen.
