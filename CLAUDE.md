@@ -57,7 +57,7 @@ schnell fertig ist.
   Dateien): Was ist schon committet, was ist offen, welche Scopes habe ich bisher benutzt?
   Der Vorschlag beschreibt nur, was wirklich im Diff steckt.
 - **Am Ende einer Sitzung:** Fasse in 3–5 Punkten zusammen, was ich gelernt habe, und
-  ergänze das in `docs/learning-log.md` (anlegen, falls nicht vorhanden). Hake erledigte
+  ergänze das in `docs/learning-log.md` (Format siehe „Dokumentation“). Hake erledigte
   Stories in `docs/backlog.md` ab.
 - **Fachbegriffe:** Wenn ein Konzept auftaucht (z. B. Value Object, Port, Dependency
   Inversion, Test Double), erkläre es kurz am konkreten Code und verweise auf eine Quelle.
@@ -193,6 +193,42 @@ lib/buildleafs/domain/      lib/buildleafs/application/      lib/buildleafs/adap
 test/…                      (spiegelt lib/)                  app.rb, config.ru
 ```
 
+## Dokumentation
+
+Jede Information liegt dort, wo man sie später sucht:
+
+| Was | Wohin |
+|---|---|
+| Wie eine Story geschnitten wurde | an der Story in `docs/backlog.md`: *Geschnitten nach: …* (z. B. Interface Variations) |
+| Entscheidungen mit Tragweite | ADR in `docs/adr/NNNN-<titel>.md` |
+| Was ich gelernt habe | `docs/learning-log.md` |
+| Warum diese eine Änderung | Commit-Body, kurz, mit Verweis (z. B. „Split by interface variations, see ADR 0003“) |
+
+**ADRs** im Format von Michael Nygard: Titel, Status, Kontext, Entscheidung,
+Konsequenzen (auf Deutsch). Kriterium: Würde sich in drei Monaten jemand fragen, warum
+das so ist – und wäre es teuer, es rückgängig zu machen? Sprich ADR-würdige
+Entscheidungen von dir aus an. Ein ADR wird nicht geändert, sondern durch ein neues
+ersetzt („Superseded by …“).
+
+**Learning Log** – Quelle für künftige Projekte und CSD-Lerngruppen. Deshalb so
+schreiben, dass es ohne diese Sitzung verständlich ist. Einträge nach Sitzung, jeder
+Lernpunkt mit:
+
+- **Konzept** (z. B. „Interface Variations“, „Fake It“, „Value Object“)
+- **Am Beispiel:** was wir hier konkret gemacht haben, mit Commit-Hash oder Datei
+- **Stolperstein:** was schiefging oder überraschte (falls vorhanden)
+- **Quelle** zum Weiterlesen
+- **Frage für die Lerngruppe:** eine offene Frage, über die man diskutieren kann
+
+**Das Repo ist öffentlich.** Daraus folgt:
+
+- Commits im Learning Log und in ADRs als Link verweisen:
+  `https://github.com/jensen-und-komplizen/buildleafs/commit/<hash>`.
+- Gepushte Historie nie umschreiben (kein Rebase/Force-Push auf `main`) – sonst laufen
+  die Links ins Leere.
+- Keine Secrets (Tokens, Webhook-Secrets, smee-URLs, Nanoleaf-IPs) und keine Namen von
+  Kursteilnehmenden in Code, Doku oder Commit-Nachrichten.
+
 ## Befehle
 
 ```bash
@@ -213,4 +249,8 @@ bundle exec puma                      # Web-App (sobald vorhanden)
 - Bill Wake: *INVEST in Good Stories, and SMART Tasks*
   (https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/)
 - Matt Wynne, Aslak Hellesøy: *The Cucumber Book* (2. Aufl.)
+- Michael Nygard: *Documenting Architecture Decisions*
+  (https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+- Richard Lawrence, Peter Green: *The Humanizing Work Guide to Splitting User Stories*
+  (https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
 - Martin Fowler: *BeckDesignRules* (Bliki, https://martinfowler.com/bliki/BeckDesignRules.html)
