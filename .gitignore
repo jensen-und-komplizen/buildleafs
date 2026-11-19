@@ -1,0 +1,6 @@
+/data/
+/.env
+/.bundle/
+/vendor/
+CLAUDE.local.md
+.claude/settings.local.json
