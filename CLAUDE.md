@@ -53,11 +53,25 @@ schnell fertig ist.
   „test(nanoleaf): …“, „refactor(domain): …“, „docs(readme): …“, „chore(build): …“).
   Gehören Änderungen zu verschiedenen Typen, schlag getrennte Commits vor, jeweils mit
   passendem `git add`. Committen tue ich immer selbst.
+  **Vor jedem Vorschlag** schaust du in `git status` und `git log` (inkl. geänderter
+  Dateien): Was ist schon committet, was ist offen, welche Scopes habe ich bisher benutzt?
+  Der Vorschlag beschreibt nur, was wirklich im Diff steckt.
 - **Am Ende einer Sitzung:** Fasse in 3–5 Punkten zusammen, was ich gelernt habe, und
   ergänze das in `docs/learning-log.md` (anlegen, falls nicht vorhanden). Hake erledigte
   Stories in `docs/backlog.md` ab.
 - **Fachbegriffe:** Wenn ein Konzept auftaucht (z. B. Value Object, Port, Dependency
   Inversion, Test Double), erkläre es kurz am konkreten Code und verweise auf eine Quelle.
+
+### Stories
+
+Stories in `docs/backlog.md` erfüllen **INVEST** (Bill Wake): *Independent, Negotiable,
+Valuable, Estimable, Small, Testable*. Besonders wichtig ist **Valuable**: Jede Story
+bringt dem Nutzer der Ampel (Trainer, Kursteilnehmende) einen echten, sichtbaren
+Mehrwert – geschnitten als vertikale Scheibe durch alle nötigen Schichten, nicht als
+technische Schicht („Value Object bauen“). Technisches Lernen gehört in die *Lernziele*
+einer Story, nicht in ihren Titel. Neue oder geänderte Stories prüfst du gegen INVEST
+und sprichst Verstöße an. Ab Story 5 hat jede Story mindestens ein Cucumber-Szenario
+als Abnahmekriterium.
 
 ### TDD-Regeln
 
@@ -91,7 +105,9 @@ abkürze. TDD ist hier das wichtigste Lernziel.
 9. **Innen anfangen, später von außen.** Phase 1 und 2 eher inside-out (klassisches
    „Chicago“-TDD am Domain-Kern). Ab den Adaptern und der Web-App lohnt sich ein
    Akzeptanztest pro Story, der von außen treibt (outside-in, „London“-Stil, vgl. GOOS).
-   Den Unterschied erklären, wenn wir das erste Mal wechseln.
+   Diese Akzeptanztests schreiben wir als **Cucumber-Features** (äußerer Kreis), die
+   Unit-Tests mit Minitest treiben den inneren Kreis. Den Unterschied erklären, wenn wir
+   das erste Mal wechseln.
 10. **Rhythmus sichtbar machen.** Sag bei jedem Schritt an, in welcher Phase wir sind
     (🔴 Rot, 🟢 Grün, 🔵 Refactor) und was als Nächstes von der Testliste kommt.
 
@@ -109,6 +125,11 @@ abkürze. TDD ist hier das wichtigste Lernziel.
   damit man sieht, was passiert.
 - Externe Systeme in Tests **nie echt aufrufen**: Test Doubles oder kleine lokale
   Fake-Server (Rack-Apps).
+- **Cucumber** für die Akzeptanztests (BDD) – Begründung: jede Story bekommt ein
+  ausführbares Abnahmekriterium in Fachsprache, wie in den `csd_adventure_*`-Repos.
+  Eingeführt erst **nach Story 4** (YAGNI): Vorher gibt es von außen nichts zu beobachten.
+  Features, Szenarien und Steps auf **Englisch**, unter `features/`; `bundle exec rake`
+  führt sie mit aus.
 - **Standard** (`standardrb`) als Linter ab Story 0: `bundle exec rake` lässt Tests *und*
   Linter laufen. Code-Stil regelt Standard – deshalb hier keine eigenen Stilregeln.
 - **Continuous Integration** ab Story 0: CircleCI führt bei jedem Push `bundle exec rake`
@@ -189,4 +210,7 @@ bundle exec puma                      # Web-App (sobald vorhanden)
 - Robert C. Martin: *Clean Code*; *Clean Architecture*
 - Steve Freeman, Nat Pryce: *Growing Object-Oriented Software, Guided by Tests*
 - David Thomas, Andrew Hunt: *The Pragmatic Programmer* (20th Anniversary Edition)
+- Bill Wake: *INVEST in Good Stories, and SMART Tasks*
+  (https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/)
+- Matt Wynne, Aslak Hellesøy: *The Cucumber Book* (2. Aufl.)
 - Martin Fowler: *BeckDesignRules* (Bliki, https://martinfowler.com/bliki/BeckDesignRules.html)
