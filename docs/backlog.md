@@ -1,89 +1,150 @@
 # Backlog
 
-Reihenfolge = Priorität. Jede Story ist so geschnitten, dass am Ende etwas Sichtbares
-oder Testbares entsteht. Früh echte Hardware anfassen (Feedback!), dann ausbauen.
-Lernziele helfen dem Mentor, Schwerpunkte zu setzen.
+Reihenfolge = Priorität. Jede Story erfüllt INVEST und bringt dem Trainer einen
+sichtbaren Mehrwert – geschnitten als vertikale Scheibe, nicht als technische Schicht.
+Erst ein dünner Durchstich vom echten Build-Status bis zu den Dreiecken, dann verbreitern.
+*Geschnitten nach* nennt das Schnittmuster, *Lernziele* helfen dem Mentor, Schwerpunkte
+zu setzen.
 
-## Phase 1 – Walking Skeleton
+## Vorbereitung
 
-- [ ] **0. Projekt aufsetzen**
-  `.ruby-version`, Gemfile, Rakefile (Tests + Standard), `test/test_helper.rb`. Erster Test bewusst **rot** sehen, dann grün
-  machen – damit ist bewiesen, dass die Test-Infrastruktur wirklich Fehler meldet.
-  Danach `.circleci/config.yml`: CircleCI führt bei jedem Push `bundle exec rake` aus
-  (dogfooding – später zeigt die Ampel ihren eigenen Build).
-  *Lernziele:* Bundler, Minitest, Rake, Aufbau eines Ruby-Projekts, der TDD-Zyklus im Kleinen,
-  Continuous Integration.
+- [ ] **0. Projekt aufsetzen** *(technische Voraussetzung, keine Nutzer-Story)*
+  `.ruby-version`, Gemfile, Rakefile (Tests + Standard), `test/test_helper.rb`. Erster
+  Test bewusst **rot** sehen, dann grün machen – damit ist bewiesen, dass die
+  Test-Infrastruktur wirklich Fehler meldet. Danach `.circleci/config.yml`: CircleCI führt
+  bei jedem Push `bundle exec rake` aus (dogfooding – später zeigt die Ampel ihren eigenen
+  Build).
+  *Lernziele:* Bundler, Minitest, Rake, Standard, Continuous Integration, der TDD-Zyklus
+  im Kleinen.
 
-- [ ] **1. Build-Status als Wert**
-  Es gibt die Zustände erfolgreich, läuft, fehlgeschlagen, unbekannt. Ungültige Zustände
-  werden abgelehnt. Zwei gleiche Zustände sind gleich.
-  *Lernziele:* Value Object, Gleichheit in Ruby (`==`, `eql?`, `hash`), Immutability, Primitive Obsession vermeiden.
+## Phase 1 – Durchstich (Tracer Bullet)
 
-- [ ] **2. Vom Status zum Lichtsignal**
-  Jeder Status hat ein Lichtsignal: Farbe(n), statisch oder pulsierend, Tempo.
-  Rot pulsiert schneller und mit mehr Kontrast als Blau (als Test formulieren!).
-  *Lernziele:* reine Funktionen/Objekte ohne Seiteneffekte, Tests für fachliche Regeln.
+- [ ] **1. Trainer sieht den Build-Status im Terminal**
+  Um zu wissen, ob `main` grün ist, ohne CircleCI im Browser zu öffnen, möchte der
+  Trainer mit einem Befehl den aktuellen Build-Status seines Kurs-Repos sehen.
+  - `bin/buildleafs` zeigt für die neueste Pipeline auf dem Branch *erfolgreich*,
+    *läuft* oder *fehlgeschlagen* und den Link zur Pipeline.
+  - Repo, Branch und CircleCI-Token kommen aus Umgebungsvariablen.
 
-- [ ] **3. Signal in Nanoleaf-Animationsdaten übersetzen**
-  Aus Signal + Panel-IDs entsteht das `animData`-Format (siehe domain-notes).
-  *Lernziele:* Übersetzung zwischen Fach- und Fremdmodell, String-Formate testen.
+  *Geschnitten nach:* Interface Variations (Terminal statt Licht), Simple/Complex
+  (Happy Path first).
+  *Lernziele:* Value Object `BuildStatus`, Gleichheit in Ruby (`==`, `eql?`, `hash`),
+  Net::HTTP, JSON, Fake-Server mit Rack.
 
-- [ ] **4. Mit dem Nanoleaf koppeln und grün leuchten** 🎉
-  Ein kleines Skript koppelt mit dem Controller, liest die Panel-IDs und lässt alle
-  Dreiecke grün leuchten – dann blau pulsierend, dann rot pulsierend.
-  *Lernziele:* Net::HTTP, Fake-Server mit Rack für Tests, Fehlerbehandlung bei Netzwerkfehlern.
-  *Wichtig:* Hier zum ersten Mal an echter Hardware prüfen, ob das Format passt.
+- [ ] **2. Trainer sieht den Build-Status als Farbe an den Dreiecken** 🎉
+  Um den Build-Status im Kursraum auf einen Blick zu sehen, möchte der Trainer, dass die
+  Dreiecke grün, blau oder rot leuchten.
+  - erfolgreich → grün, läuft → blau, fehlgeschlagen → rot – zunächst statisch.
+  - Nanoleaf-IP und Auth-Token kommen aus Umgebungsvariablen; ein kleines Hilfsskript
+    koppelt einmalig und gibt den Token aus.
 
-## Phase 2 – Status von CircleCI holen
+  *Geschnitten nach:* Simple/Complex (statische Farbe vor Pulsieren).
+  *Lernziele:* Übersetzung Fachmodell → Fremdmodell (`animData`), Panel-IDs lesen,
+  Fake-Nanoleaf-Server, erster Test an echter Hardware.
 
-- [ ] **5. Aktuellen Build-Status über die CircleCI-API lesen**
-  Neueste Pipeline auf `main` → Workflows → Status. Regeln siehe domain-notes.
-  *Lernziele:* API-Client als Adapter, JSON, Test mit Fake-Server, Fehlerfälle (401, 404).
+- [ ] **3. Trainer erkennt am Pulsieren, ob ein Build läuft oder fehlschlägt**
+  Um einen fehlgeschlagenen Build auch aus dem Augenwinkel nicht zu übersehen, möchte der
+  Trainer, dass Rot deutlich schneller und kräftiger pulsiert als Blau.
+  - läuft → blau, langsam pulsierend; fehlgeschlagen → rot, schnell und kräftig pulsierend.
+  - Als Test formuliert: Rot pulsiert schneller und mit mehr Kontrast als Blau.
 
-- [ ] **6. Nur bei Änderung umschalten**
-  Ein Durchlauf fragt den Status ab und schaltet das Licht nur um, wenn er sich geändert hat.
-  *Lernziele:* Use Case, Ports (Light, StatusSource), Test Doubles (Fake vs. Mock), Dependency Injection.
+  *Lernziele:* fachliche Regeln als Tests, reine Objekte ohne Seiteneffekte (`Signal`).
 
-- [ ] **7. Regelmäßig abfragen**
-  Hintergrund-Thread fragt im Intervall ab; Zeit ist im Test steuerbar.
-  *Lernziele:* Threads, Mutex, Uhr als Abhängigkeit (Clock), deterministische Tests.
+## Phase 2 – Verlässlich im Kursalltag
 
-- [ ] **8. Panels beim Beenden ausschalten**
-  Strg+C / SIGTERM → Panels aus (einstellbar: aus / orange / so lassen).
+*Ab hier hat jede Story mindestens ein Cucumber-Szenario als Abnahmekriterium.*
+
+- [ ] **4. Trainer sieht, warum kein Status kommt**
+  Um eine falsche Konfiguration schnell zu beheben, möchte der Trainer sehen, warum kein
+  Build-Status angezeigt wird.
+  - Token abgelehnt (401) oder Repo nicht gefunden (404) → *unbekannt* (gedimmtes
+    Orange), Ursache wird im Terminal genannt, Exit-Code ≠ 0.
+
+  *Geschnitten nach:* Simple/Complex (Fehlerfälle nach dem Happy Path).
+  *Lernziele:* Fehlerbehandlung an Adaptergrenzen, Exit-Codes, erstes Cucumber-Feature
+  (Wechsel zu outside-in).
+
+- [ ] **5. Trainer wird von abgebrochenen oder kaputten Pipelines nicht in die Irre geführt**
+  Um sich auf die Ampel verlassen zu können, möchte der Trainer, dass sie auch in
+  Sonderfällen den richtigen Status zeigt.
+  - `failing` → sofort rot; Pipeline `errored` → rot.
+  - Abgebrochene Pipelines und Pipelines ohne Workflows → die nächstältere zählt.
+
+  *Geschnitten nach:* Business Rule Variations.
+  *Lernziele:* Edge Cases als Tests, Auswertungsregeln im Domain-Kern (siehe domain-notes).
+
+- [ ] **6. Ampel aktualisiert sich von selbst**
+  Um nicht ständig selbst nachsehen zu müssen, möchte der Trainer, dass die Ampel den
+  Status regelmäßig abfragt und bei Änderung umschaltet.
+  - Abfrage im einstellbaren Intervall.
+  - Licht wird nur bei Änderung neu gesetzt (Pulsieren startet nicht ständig neu).
+
+  *Lernziele:* Use Case, Ports (`StatusSource`, `Light`, `Clock`), Fake vs. Mock, Threads,
+  Mutex, deterministische Tests.
+
+- [ ] **7. Ampel zeigt nach dem Beenden keinen veralteten Status**
+  Um nicht von einem stehengebliebenen Grün getäuscht zu werden, möchte der Trainer, dass
+  die Dreiecke beim Beenden ausgehen.
+  - Strg+C / SIGTERM → Panels aus (einstellbar: aus / orange / so lassen).
+
   *Lernziele:* `at_exit`, Signale, Aufräumen.
 
 ## Phase 3 – Weboberfläche
 
-- [ ] **9. Statusseite**
-  Sinatra zeigt aktuellen Zustand, Pipeline, Commit, letzte Prüfung.
-  *Lernziele:* Sinatra, ERB, Rack::Test, Adapter für die Auslieferung.
+- [ ] **8. Trainer sieht die Details zum Status im Browser**
+  Um bei Rot schnell zum schuldigen Commit zu kommen, möchte der Trainer im Browser
+  Status, Pipeline, Commit und Zeitpunkt der letzten Prüfung sehen.
 
-- [ ] **10. Konfiguration über die Oberfläche**
-  Repo (GitHub-URL wird normalisiert), Branch, Intervall, Nanoleaf-IP, CircleCI-Token;
-  gespeichert in `data/config.yml` (Rechte 0600). Kopplung per Knopf.
-  *Lernziele:* Formulare, Persistenz als Adapter, Validierung, Geheimnisse sicher speichern.
+  *Lernziele:* Sinatra, ERB, Rack::Test.
 
-- [ ] **11. Vorschau-Knöpfe**
-  „Grün/Blau/Rot testen“ zeigt das Signal 10 s lang, danach wieder den echten Zustand.
+- [ ] **9. Trainer konfiguriert das Repo im Browser**
+  Um die Ampel vor jedem Kurs ohne Terminal auf ein neues Repo umzustellen, möchte der
+  Trainer Repo, Branch, Intervall und Token im Browser eintragen.
+  - GitHub-URLs werden normalisiert; gespeichert in `data/config.yml` (Rechte 0600).
 
-## Phase 4 – Webhooks statt nur Abfragen
+  *Lernziele:* Formulare, Persistenz als Adapter, Validierung, Secrets sicher speichern.
 
-- [ ] **12. GitHub-Push macht blau**
-  Push auf den beobachteten Branch → läuft. Andere Branches, Repos, `[skip ci]` ignorieren.
-  *Lernziele:* Webhooks, HMAC-Signaturen, Zustandsmaschine im Domain-Kern.
+- [ ] **10. Trainer koppelt die Dreiecke per Knopf**
+  Um im Seminarraum ohne Terminal mit dem Nanoleaf zu koppeln, möchte der Trainer die
+  Kopplung im Browser per Knopf auslösen.
 
-- [ ] **13. CircleCI meldet das Ergebnis**
-  `workflow-completed` → grün/rot; nur für den erwarteten Commit (ältere ignorieren).
-  *Lernziele:* Zustandsmaschine erweitern, Edge Cases als Tests (siehe domain-notes „Stolpersteine“).
+  *Geschnitten nach:* Operations (Konfiguration und Kopplung getrennt).
 
-- [ ] **14. Webhooks über smee.io empfangen**
-  Ausgehende SSE-Verbindung zu einem smee-Kanal, Wiederverbinden mit Backoff.
-  *Lernziele:* Streams, Server-Sent Events, Robustheit.
+- [ ] **11. Trainer testet die Ampel vor Kursbeginn**
+  Um vor Kursbeginn sicher zu sein, dass alle Farben funktionieren, möchte der Trainer
+  jedes Signal per Knopf 10 s lang anzeigen lassen; danach kehrt die Ampel zum echten
+  Zustand zurück.
+
+## Phase 4 – Sofort reagieren (Webhooks)
+
+- [ ] **12. Ampel zeigt das Build-Ergebnis sofort**
+  Um das Ergebnis eines Builds sofort und nicht erst nach dem nächsten Intervall zu
+  sehen, möchte der Trainer, dass die Ampel auf die CircleCI-Meldung „Workflow
+  abgeschlossen“ reagiert – empfangen über smee.io.
+  - Nur für den erwarteten Commit (ältere Meldungen ignorieren).
+
+  *Lernziele:* Webhooks, HMAC-Signaturen, Server-Sent Events, Zustandsmaschine
+  (siehe domain-notes „Stolpersteine“).
+
+- [ ] **13. Push macht die Ampel sofort blau**
+  Um zu sehen, dass ein Push angekommen ist, möchte der Trainer, dass die Ampel bei
+  einem Push auf den beobachteten Branch sofort blau wird.
+  - Andere Branches, andere Repos und `[skip ci]` werden ignoriert.
+
+  *Lernziele:* Zustandsmaschine erweitern.
+
+- [ ] **14. Ampel bleibt bei Verbindungsabbrüchen erreichbar**
+  Um im wackeligen Seminar-WLAN nicht ohne Updates dazustehen, möchte der Trainer, dass
+  sich die Ampel nach einem Abbruch selbst wieder mit smee.io verbindet.
+
+  *Geschnitten nach:* Simple/Complex (Robustheit nach dem Grundfall).
+  *Lernziele:* Wiederverbinden mit Backoff, Robustheit.
 
 - [ ] **15. Abfrage als Absicherung**
-  API-Abfrage bleibt als Fallback; sie darf neuere Webhook-Ergebnisse nicht überschreiben.
+  Um auch bei verlorenen Webhooks den richtigen Status zu sehen, möchte der Trainer, dass
+  die regelmäßige Abfrage weiterläuft, ohne neuere Webhook-Ergebnisse zu überschreiben.
 
 ## Später / Ideen
 
-- README auf Englisch, Deployment auf dem Raspberry Pi (systemd)
+- Deployment auf dem Raspberry Pi (systemd)
 - Mehrere Repos auf Gruppen von Dreiecken verteilen

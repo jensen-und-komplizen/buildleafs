@@ -26,7 +26,7 @@ passende Story dran ist.
   - Beispiel rot pulsierend, 2 Panels: `2 5 2 255 0 0 0 4 12 0 0 0 4 6 2 255 0 0 0 4 12 0 0 0 4`
 - Bewährte Werte im Prototyp: grün `0 255 40`; blau hell `0 90 255` / dunkel `0 22 70`,
   T = 15; rot hell `255 0 0` / dunkel `12 0 0`, T = 4; unbekannt `70 28 0`.
-- ⚠️ Noch nicht an echter Hardware geprüft – Story 4 klärt das.
+- ⚠️ Noch nicht an echter Hardware geprüft – Story 2 klärt das.
 
 ## CircleCI-API v2
 

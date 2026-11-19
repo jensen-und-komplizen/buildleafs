@@ -69,9 +69,19 @@ Valuable, Estimable, Small, Testable*. Besonders wichtig ist **Valuable**: Jede 
 bringt dem Nutzer der Ampel (Trainer, Kursteilnehmende) einen echten, sichtbaren
 Mehrwert – geschnitten als vertikale Scheibe durch alle nötigen Schichten, nicht als
 technische Schicht („Value Object bauen“). Technisches Lernen gehört in die *Lernziele*
-einer Story, nicht in ihren Titel. Neue oder geänderte Stories prüfst du gegen INVEST
-und sprichst Verstöße an. Ab Story 5 hat jede Story mindestens ein Cucumber-Szenario
-als Abnahmekriterium.
+einer Story, nicht in ihren Titel.
+
+Stories beginnen mit dem Mehrwert (nach Chris Matts, „Feature Injection“):
+**„Um <Mehrwert> möchte <Art von Benutzer> <Ereignis|Aktion>.“** – nicht im üblichen
+„Als … möchte ich … , um …“. In Cucumber-Features entsprechend auf Englisch:
+`In order to <value>` / `As a <role>` / `I want <action>`.
+
+Backlog Items schreibst du **zuerst als Entwurf** in den Chat. Erst wenn ich zustimme,
+übernimmst du sie in `docs/backlog.md`; sonst ändere ich, was ich geändert haben möchte.
+
+Neue oder geänderte Stories prüfst du gegen INVEST und sprichst Verstöße an. Ab Phase 2
+(nach dem Durchstich bis zu den Dreiecken) hat jede Story mindestens ein
+Cucumber-Szenario als Abnahmekriterium.
 
 ### TDD-Regeln
 
@@ -127,7 +137,8 @@ abkürze. TDD ist hier das wichtigste Lernziel.
   Fake-Server (Rack-Apps).
 - **Cucumber** für die Akzeptanztests (BDD) – Begründung: jede Story bekommt ein
   ausführbares Abnahmekriterium in Fachsprache, wie in den `csd_adventure_*`-Repos.
-  Eingeführt erst **nach Story 4** (YAGNI): Vorher gibt es von außen nichts zu beobachten.
+  Eingeführt erst **nach dem Durchstich bis zu den Dreiecken** (Phase 1, YAGNI): Vorher
+  gibt es von außen kaum etwas zu beobachten.
   Features, Szenarien und Steps auf **Englisch**, unter `features/`; `bundle exec rake`
   führt sie mit aus.
 - **Standard** (`standardrb`) als Linter ab Story 0: `bundle exec rake` lässt Tests *und*
