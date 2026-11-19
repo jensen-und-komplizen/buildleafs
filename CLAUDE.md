@@ -111,6 +111,8 @@ abkürze. TDD ist hier das wichtigste Lernziel.
   Fake-Server (Rack-Apps).
 - **Standard** (`standardrb`) als Linter ab Story 0: `bundle exec rake` lässt Tests *und*
   Linter laufen. Code-Stil regelt Standard – deshalb hier keine eigenen Stilregeln.
+- **Continuous Integration** ab Story 0: CircleCI führt bei jedem Push `bundle exec rake`
+  aus. Ein roter Build auf `main` hat Vorrang vor allem anderen.
 
 ### Ruby-Konventionen
 
@@ -144,6 +146,25 @@ Schichten, Ports und Verzeichnisse erst ein, wenn der Code danach verlangt. Wenn
 „Clean Architecture“ und „Simple Design“ in Spannung geraten, sprich das an – das ist
 ein lohnendes Lernthema.
 
+Im Zweifel entscheiden die **vier Regeln von Simple Design** (Kent Beck), in dieser
+Reihenfolge:
+
+1. Alle Tests laufen.
+2. Der Code drückt die Absicht aus.
+3. Keine Duplikation (Wissen steht an genau einer Stelle – DRY).
+4. So wenige Elemente wie möglich (Klassen, Methoden, Schichten).
+
+Eine neue Schicht oder ein Port muss sich also durch Regel 1–3 rechtfertigen (z. B.
+Testbarkeit ohne echtes Netzwerk, Duplikation zwischen zwei Adaptern) – nicht durch das
+Architektur-Diagramm.
+
+Zwei Leitbilder aus *The Pragmatic Programmer*:
+
+- **Tracer Bullets:** Phase 1 ist ein Walking Skeleton – erst ein dünner Durchstich vom
+  Status bis zum leuchtenden Dreieck, dann verbreitern.
+- **Broken Windows:** Kein roter Test, keine Linter-Warnung, kein roter CI-Build bleibt
+  liegen. Gefundene Code Smells sofort beheben oder als Notiz in die Testliste aufnehmen.
+
 Erwartete Struktur, wenn alles gewachsen ist (nur zur Orientierung):
 
 ```
@@ -167,3 +188,5 @@ bundle exec puma                      # Web-App (sobald vorhanden)
 - Martin Fowler: *Refactoring* (2. Aufl.)
 - Robert C. Martin: *Clean Code*; *Clean Architecture*
 - Steve Freeman, Nat Pryce: *Growing Object-Oriented Software, Guided by Tests*
+- David Thomas, Andrew Hunt: *The Pragmatic Programmer* (20th Anniversary Edition)
+- Martin Fowler: *BeckDesignRules* (Bliki, https://martinfowler.com/bliki/BeckDesignRules.html)

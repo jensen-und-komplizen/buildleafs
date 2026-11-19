@@ -9,7 +9,10 @@ Lernziele helfen dem Mentor, Schwerpunkte zu setzen.
 - [ ] **0. Projekt aufsetzen**
   `.ruby-version`, Gemfile, Rakefile (Tests + Standard), `test/test_helper.rb`. Erster Test bewusst **rot** sehen, dann grün
   machen – damit ist bewiesen, dass die Test-Infrastruktur wirklich Fehler meldet.
-  *Lernziele:* Bundler, Minitest, Rake, Aufbau eines Ruby-Projekts, der TDD-Zyklus im Kleinen.
+  Danach `.circleci/config.yml`: CircleCI führt bei jedem Push `bundle exec rake` aus
+  (dogfooding – später zeigt die Ampel ihren eigenen Build).
+  *Lernziele:* Bundler, Minitest, Rake, Aufbau eines Ruby-Projekts, der TDD-Zyklus im Kleinen,
+  Continuous Integration.
 
 - [ ] **1. Build-Status als Wert**
   Es gibt die Zustände erfolgreich, läuft, fehlgeschlagen, unbekannt. Ungültige Zustände
@@ -82,6 +85,5 @@ Lernziele helfen dem Mentor, Schwerpunkte zu setzen.
 
 ## Später / Ideen
 
-- Linter (standardrb), CI für dieses Repo auf CircleCI (dogfooding!)
 - README auf Englisch, Deployment auf dem Raspberry Pi (systemd)
 - Mehrere Repos auf Gruppen von Dreiecken verteilen
