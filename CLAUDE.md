@@ -2,7 +2,8 @@
 
 ## Worum es geht
 
-**Buildleafs** ist eine Build-Ampel („Extreme Feedback Device“): Nanoleaf Shapes
+**Buildleafs** ist eine Build-Ampel („Extreme Feedback Device“, siehe
+[Build light indicator](https://en.wikipedia.org/wiki/Build_light_indicator)): Nanoleaf Shapes
 (Triangles) zeigen den CircleCI-Status eines GitHub-Repos an.
 
 | Build-Zustand | Licht |
@@ -61,6 +62,10 @@ schnell fertig ist.
   Stories in `docs/backlog.md` ab.
 - **Fachbegriffe:** Wenn ein Konzept auftaucht (z. B. Value Object, Port, Dependency
   Inversion, Test Double), erkläre es kurz am konkreten Code und verweise auf eine Quelle.
+  Jeder benannte Begriff oder jedes Muster (z. B. Tracer Bullet, SPIDR Interfaces)
+  bekommt **beim ersten Auftreten** – im Chat und in allen Dokumenten (Backlog, ADRs,
+  Learning Log, README) – seine **Herkunft** (Autor, Buch und Kapitel oder Artikel) und,
+  wo möglich, einen **Link** zum Weiterlesen. Links nur, wenn du sie geprüft hast.
 
 ### Stories
 
@@ -71,7 +76,8 @@ Mehrwert – geschnitten als vertikale Scheibe durch alle nötigen Schichten, ni
 technische Schicht („Value Object bauen“). Technisches Lernen gehört in die *Lernziele*
 einer Story, nicht in ihren Titel.
 
-Stories beginnen mit dem Mehrwert (nach Chris Matts, „Feature Injection“):
+Stories beginnen mit dem Mehrwert (Vorschlag von Chris Matts, beschrieben von Liz Keogh in
+[„RIP As a… I want… So that…“](https://lizkeogh.com/2008/05/14/rip-as-a-i-want-so-that/)):
 **„Um <Mehrwert> möchte <Art von Benutzer> <Ereignis|Aktion>.“** – nicht im üblichen
 „Als … möchte ich … , um …“. In Cucumber-Features entsprechend auf Englisch:
 `In order to <value>` / `As a <role>` / `I want <action>`.
@@ -173,12 +179,14 @@ Adapters      CircleCI-API, Nanoleaf, GitHub-/CircleCI-Webhooks, smee.io, Sinatr
 ```
 
 Wichtig: Das ist ein **Ziel, kein Bauplan für den ersten Tag**. Im Sinne von XP
-(Simple Design, YAGNI) lassen wir die Struktur aus den Tests entstehen und führen
+(Simple Design, [YAGNI](https://martinfowler.com/bliki/Yagni.html)) lassen wir die Struktur aus den Tests entstehen und führen
 Schichten, Ports und Verzeichnisse erst ein, wenn der Code danach verlangt. Wenn
 „Clean Architecture“ und „Simple Design“ in Spannung geraten, sprich das an – das ist
 ein lohnendes Lernthema.
 
-Im Zweifel entscheiden die **vier Regeln von Simple Design** (Kent Beck), in dieser
+Im Zweifel entscheiden die **vier Regeln von Simple Design** (Kent Beck, *Extreme
+Programming Explained*; Zusammenfassung:
+[BeckDesignRules](https://martinfowler.com/bliki/BeckDesignRules.html)), in dieser
 Reihenfolge:
 
 1. Alle Tests laufen.
@@ -190,11 +198,15 @@ Eine neue Schicht oder ein Port muss sich also durch Regel 1–3 rechtfertigen (
 Testbarkeit ohne echtes Netzwerk, Duplikation zwischen zwei Adaptern) – nicht durch das
 Architektur-Diagramm.
 
-Zwei Leitbilder aus *The Pragmatic Programmer*:
+Zwei Leitbilder aus *The Pragmatic Programmer* (David Thomas, Andrew Hunt, 20th
+Anniversary Edition):
 
-- **Tracer Bullets:** Phase 1 ist ein Walking Skeleton – erst ein dünner Durchstich vom
-  Status bis zum leuchtenden Dreieck, dann verbreitern.
-- **Broken Windows:** Kein roter Test, keine Linter-Warnung, kein roter CI-Build bleibt
+- **Tracer Bullets** (Topic 12 „Tracer Bullets“): Phase 1 ist ein dünner Durchstich vom
+  echten Status bis zum leuchtenden Dreieck, der bleibt und verbreitert wird – kein
+  Wegwerf-Prototyp. Verwandt: der **Walking Skeleton** von Alistair Cockburn
+  (*Crystal Clear*; [WalkingSkeleton im C2 Wiki](https://wiki.c2.com/?WalkingSkeleton)),
+  den auch *GOOS* (Kap. 4) als Startpunkt empfiehlt.
+- **Broken Windows** (Topic 3 „Software Entropy“): Kein roter Test, keine Linter-Warnung, kein roter CI-Build bleibt
   liegen. Gefundene Code Smells sofort beheben oder als Notiz in die Testliste aufnehmen.
 
 Erwartete Struktur, wenn alles gewachsen ist (nur zur Orientierung):
@@ -210,22 +222,23 @@ Jede Information liegt dort, wo man sie später sucht:
 
 | Was | Wohin |
 |---|---|
-| Wie eine Story geschnitten wurde | an der Story in `docs/backlog.md`: *Geschnitten nach: …* (z. B. Interface Variations) |
+| Wie eine Story geschnitten wurde | an der Story in `docs/backlog.md`: *Geschnitten nach: …* (z. B. SPIDR Interfaces) |
 | Entscheidungen mit Tragweite | ADR in `docs/adr/NNNN-<titel>.md` |
 | Was ich gelernt habe | `docs/learning-log.md` |
-| Warum diese eine Änderung | Commit-Body, kurz, mit Verweis (z. B. „Split by interface variations, see ADR 0003“) |
+| Warum diese eine Änderung | Commit-Body, kurz, mit Verweis (z. B. „Split by SPIDR interfaces, see ADR 0003“) |
 
 **ADRs** im Format von Michael Nygard: Titel, Status, Kontext, Entscheidung,
 Konsequenzen (auf Deutsch). Kriterium: Würde sich in drei Monaten jemand fragen, warum
 das so ist – und wäre es teuer, es rückgängig zu machen? Sprich ADR-würdige
 Entscheidungen von dir aus an. Ein ADR wird nicht geändert, sondern durch ein neues
-ersetzt („Superseded by …“).
+ersetzt („Superseded by …“). Ausnahme: sachliche Korrekturen (z. B. falsche Quelle) als
+sichtbares *Erratum* im ADR.
 
 **Learning Log** – Quelle für künftige Projekte und CSD-Lerngruppen. Deshalb so
 schreiben, dass es ohne diese Sitzung verständlich ist. Einträge nach Sitzung, jeder
 Lernpunkt mit:
 
-- **Konzept** (z. B. „Interface Variations“, „Fake It“, „Value Object“)
+- **Konzept** (z. B. „SPIDR Interfaces“, „Fake It“, „Value Object“)
 - **Am Beispiel:** was wir hier konkret gemacht haben, mit Commit-Hash oder Datei
 - **Stolperstein:** was schiefging oder überraschte (falls vorhanden)
 - **Quelle** zum Weiterlesen
@@ -262,6 +275,8 @@ bundle exec puma                      # Web-App (sobald vorhanden)
 - Matt Wynne, Aslak Hellesøy: *The Cucumber Book* (2. Aufl.)
 - Michael Nygard: *Documenting Architecture Decisions*
   (https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+- Mike Cohn: *SPIDR: Five Simple but Powerful Ways to Split User Stories*
+  (https://www.mountaingoatsoftware.com/blog/five-simple-but-powerful-ways-to-split-user-stories)
 - Richard Lawrence, Peter Green: *The Humanizing Work Guide to Splitting User Stories*
   (https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
 - Martin Fowler: *BeckDesignRules* (Bliki, https://martinfowler.com/bliki/BeckDesignRules.html)
