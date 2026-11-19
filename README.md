@@ -1,6 +1,6 @@
 # buildleafs Project
 
-Eine Build-Ampel („Extreme Feedback Device“) für [Nanoleaf](https://nanoleaf.me) Shapes:
+Eine Build-Ampel („Extreme Feedback Device“, siehe [Build light indicator](https://en.wikipedia.org/wiki/Build_light_indicator)) für [Nanoleaf](https://nanoleaf.me) Shapes:
 Die Dreiecke zeigen den [CircleCI](https://circleci.com/)-Status eines GitHub-Repos an.
 Eingesetzt wird sie in unseren CSD-Kursen auf dem Laptop des Trainers, als Erstes für
 [`csd_adventure_javascript`](https://github.com/jensen-und-komplizen/csd_adventure_javascript).

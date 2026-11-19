@@ -20,15 +20,21 @@ und eine Frage zum Diskutieren.
 - **Frage für die Lerngruppe:** Woran erkennt ihr in eurem Backlog eine Story, die in
   Wahrheit eine technische Schicht ist? Wie würdet ihr sie umformulieren?
 
-### Story-Schnittmuster: Interface Variations und Happy Path first
+### Story-Schnittmuster: Interfaces und Paths (SPIDR)
 
 - **Am Beispiel:** Statt Status *und* Licht auf einmal: erst der echte Status mit der
-  einfachsten Ausgabe (Terminal), das Licht als eigene Story. Fehlerfälle (401/404) als
-  eigene Story nach dem Happy Path, weil die erste Story sonst nicht *Small* war.
-  Ein Ende darf gefakt werden – aber nicht die Intention: Gemockter Status *und*
-  Terminal-Ausgabe hätten dem Trainer nichts Neues gezeigt.
-- **Quelle:** Richard Lawrence, Peter Green, *The Humanizing Work Guide to Splitting
-  User Stories* (https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
+  einfachsten Ausgabe (Terminal), das Licht als eigene Story (*Interfaces*). Fehlerfälle
+  (401/404) als eigene Story nach dem Happy Path (*Paths*), weil die erste Story sonst
+  nicht *Small* war. Ein Ende darf gefakt werden – aber nicht die Intention: Gemockter
+  Status *und* Terminal-Ausgabe hätten dem Trainer nichts Neues gezeigt.
+- **Stolperstein:** Das Muster wurde zuerst als „Interface Variations“ aus dem
+  Humanizing-Work-Guide zitiert – dort gibt es es nicht. Beim Nachprüfen der Quelle fiel
+  das auf. Lehre: Quellen beim ersten Zitieren prüfen, nicht aus dem Gedächtnis.
+- **Quelle:** Mike Cohn, *SPIDR: Five Simple but Powerful Ways to Split User Stories*
+  (https://www.mountaingoatsoftware.com/blog/five-simple-but-powerful-ways-to-split-user-stories);
+  weitere Muster (Simple/Complex, Business Rule Variations, Operations): Richard Lawrence,
+  Peter Green, *The Humanizing Work Guide to Splitting User Stories*
+  (https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
 - **Frage für die Lerngruppe:** Welches Ende eurer aktuellen Story ist die Intention,
   welches die Lösung – und welches dürftet ihr deshalb vorläufig vereinfachen?
 

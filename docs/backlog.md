@@ -1,10 +1,18 @@
 # Backlog
 
-Reihenfolge = Priorität. Jede Story erfüllt INVEST und bringt dem Trainer einen
-sichtbaren Mehrwert – geschnitten als vertikale Scheibe, nicht als technische Schicht.
-Erst ein dünner Durchstich vom echten Build-Status bis zu den Dreiecken, dann verbreitern.
-*Geschnitten nach* nennt das Schnittmuster, *Lernziele* helfen dem Mentor, Schwerpunkte
-zu setzen.
+Reihenfolge = Priorität. Jede Story erfüllt INVEST (Bill Wake,
+[INVEST in Good Stories, and SMART Tasks](https://xp123.com/articles/invest-in-good-stories-and-smart-tasks/))
+und bringt dem Trainer einen sichtbaren Mehrwert – geschnitten als vertikale Scheibe,
+nicht als technische Schicht. Erst ein dünner Durchstich vom echten Build-Status bis zu
+den Dreiecken, dann verbreitern.
+
+*Geschnitten nach* nennt das Schnittmuster. Quellen:
+- **SPIDR** (Spikes, Paths, Interfaces, Data, Rules) – Mike Cohn,
+  [SPIDR: Five Simple but Powerful Ways to Split User Stories](https://www.mountaingoatsoftware.com/blog/five-simple-but-powerful-ways-to-split-user-stories)
+- **Simple/Complex, Business Rule Variations, Operations** – Richard Lawrence, Peter Green,
+  [The Humanizing Work Guide to Splitting User Stories](https://www.humanizingwork.com/the-humanizing-work-guide-to-splitting-user-stories/)
+
+*Lernziele* helfen dem Mentor, Schwerpunkte zu setzen.
 
 ## Vorbereitung
 
@@ -19,6 +27,10 @@ zu setzen.
 
 ## Phase 1 – Durchstich (Tracer Bullet)
 
+*Tracer Bullet:* ein dünner, aber echter Weg durch alle Teile des Systems, der bleibt und
+verbreitert wird (David Thomas, Andrew Hunt: *The Pragmatic Programmer*, 20th Anniversary
+Edition, Topic 12 „Tracer Bullets“).
+
 - [ ] **1. Trainer sieht den Build-Status im Terminal**
   Um zu wissen, ob `main` grün ist, ohne CircleCI im Browser zu öffnen, möchte der
   Trainer mit einem Befehl den aktuellen Build-Status seines Kurs-Repos sehen.
@@ -26,8 +38,8 @@ zu setzen.
     *läuft* oder *fehlgeschlagen* und den Link zur Pipeline.
   - Repo, Branch und CircleCI-Token kommen aus Umgebungsvariablen.
 
-  *Geschnitten nach:* Interface Variations (Terminal statt Licht), Simple/Complex
-  (Happy Path first).
+  *Geschnitten nach:* SPIDR **Interfaces** (Terminal statt Licht), SPIDR **Paths**
+  (Happy Path zuerst).
   *Lernziele:* Value Object `BuildStatus`, Gleichheit in Ruby (`==`, `eql?`, `hash`),
   Net::HTTP, JSON, Fake-Server mit Rack.
 
@@ -60,7 +72,7 @@ zu setzen.
   - Token abgelehnt (401) oder Repo nicht gefunden (404) → *unbekannt* (gedimmtes
     Orange), Ursache wird im Terminal genannt, Exit-Code ≠ 0.
 
-  *Geschnitten nach:* Simple/Complex (Fehlerfälle nach dem Happy Path).
+  *Geschnitten nach:* SPIDR **Paths** (Fehlerfälle nach dem Happy Path).
   *Lernziele:* Fehlerbehandlung an Adaptergrenzen, Exit-Codes, erstes Cucumber-Feature
   (Wechsel zu outside-in).
 
