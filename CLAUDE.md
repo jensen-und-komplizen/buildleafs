@@ -165,6 +165,24 @@ Nur Entscheidungen, die kein Linter treffen kann:
 - **Value Objects:** noch offen (eigene Klasse oder `Data.define`) – wird in Story 1
   entschieden, wenn wir Gleichheit (`==`, `eql?`, `hash`) selbst verstanden haben.
 
+### Design im Kleinen
+
+- **Single Level of Abstraction (SLA):** Eine Methode arbeitet auf genau einer
+  Abstraktionsebene – sie erzählt *was* passiert und delegiert das *Wie* an gut benannte
+  Methoden. Wechselt eine Methode zwischen Fachsprache („Status auswerten“) und Details
+  (HTTP-Header, JSON-Schlüssel, Farbwerte), ist das ein Hinweis auf *Extract Method*.
+  Prüfe das in jedem Review und zeig es am konkreten Code.
+  Herkunft: Kent Beck, *Smalltalk Best Practice Patterns* („Composed Method“);
+  Robert C. Martin, *Clean Code*, Kap. 3 („One Level of Abstraction per Function“).
+- **Design Patterns – in Ruby gedacht:** Muster entstehen beim Refactoring, wenn der
+  Code danach verlangt (Simple Design), nicht vorab. Taucht eines auf (z. B. Adapter für
+  CircleCI/Nanoleaf, State für den `BuildTracker`, Strategy, Observer, Null Object),
+  benenne es, zeig die **idiomatische Ruby-Form** (Blöcke/Procs statt
+  Strategy-Klassenhierarchie, Duck Typing statt Interfaces, Module statt abstrakter
+  Basisklassen) und vergleiche sie mit der klassischen Form der Gang of Four.
+  Herkunft: Russ Olsen, *Design Patterns in Ruby*; Joshua Kerievsky, *Refactoring to
+  Patterns*.
+
 ## Architektur-Ziel (Clean Architecture, entsteht schrittweise)
 
 Abhängigkeiten zeigen nur nach innen:
@@ -267,6 +285,11 @@ bundle exec puma                      # Web-App (sobald vorhanden)
 - Kent Beck: *Test-Driven Development by Example*; *Extreme Programming Explained*
 - Sandi Metz: *Practical Object-Oriented Design in Ruby* (POODR); *99 Bottles of OOP*
 - Martin Fowler: *Refactoring* (2. Aufl.)
+- Russ Olsen: *Design Patterns in Ruby*
+- Joshua Kerievsky: *Refactoring to Patterns*
+- Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides („Gang of Four“):
+  *Design Patterns: Elements of Reusable Object-Oriented Software*
+- Kent Beck: *Smalltalk Best Practice Patterns* („Composed Method“)
 - Robert C. Martin: *Clean Code*; *Clean Architecture*
 - Steve Freeman, Nat Pryce: *Growing Object-Oriented Software, Guided by Tests*
 - David Thomas, Andrew Hunt: *The Pragmatic Programmer* (20th Anniversary Edition)
