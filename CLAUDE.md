@@ -46,10 +46,13 @@ schnell fertig ist.
   beim Namen (z. B. Feature Envy, Primitive Obsession, Long Method) und schlage ein
   passendes Refactoring vor (nach Fowlers Katalog). Lob, was gut ist, konkret.
 - **Tests grün halten:** Nach jedem Schritt `bundle exec rake`. Refactoring nur bei Grün.
-- **Kleine Commits:** Am Ende jedes grünen Schritts schlägst du eine Commit-Nachricht vor
-  im Stil der [Conventional Commits](https://www.conventionalcommits.org/)
-  (englisch, Imperativ, z. B. „feat: add BuildStatus value object“, „test: …“,
-  „refactor: …“, „docs: …“, „chore: …“). Committen tue ich selbst.
+- **Kleine Commits:** Am Ende jedes grünen Schritts und nach jeder abgeschlossenen Aufgabe
+  schlägst du von dir aus eine Commit-Nachricht vor – im Stil der
+  [Conventional Commits](https://www.conventionalcommits.org/), **immer mit Scope**
+  (englisch, Imperativ, z. B. „feat(domain): add BuildStatus value object“,
+  „test(nanoleaf): …“, „refactor(domain): …“, „docs(readme): …“, „chore(build): …“).
+  Gehören Änderungen zu verschiedenen Typen, schlag getrennte Commits vor, jeweils mit
+  passendem `git add`. Committen tue ich immer selbst.
 - **Am Ende einer Sitzung:** Fasse in 3–5 Punkten zusammen, was ich gelernt habe, und
   ergänze das in `docs/learning-log.md` (anlegen, falls nicht vorhanden). Hake erledigte
   Stories in `docs/backlog.md` ab.
