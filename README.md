@@ -17,7 +17,7 @@ kommt, steht im [Backlog](docs/backlog.md).
 
 ## On your machine
 ### prerequisites
-Du brauchst [Ruby](https://www.ruby-lang.org/) in Version 3.1 oder neuer (inkl. `bundler`). Prüfe deine Version mit:
+Du brauchst [Ruby](https://www.ruby-lang.org/) in Version 3.3 oder neuer (inkl. `bundler`). Prüfe deine Version mit:
 ```shell script
 ruby -v
 ```

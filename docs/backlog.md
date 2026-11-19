@@ -7,7 +7,7 @@ Lernziele helfen dem Mentor, Schwerpunkte zu setzen.
 ## Phase 1 – Walking Skeleton
 
 - [ ] **0. Projekt aufsetzen**
-  Gemfile, Rakefile, `test/test_helper.rb`. Erster Test bewusst **rot** sehen, dann grün
+  `.ruby-version`, Gemfile, Rakefile (Tests + Standard), `test/test_helper.rb`. Erster Test bewusst **rot** sehen, dann grün
   machen – damit ist bewiesen, dass die Test-Infrastruktur wirklich Fehler meldet.
   *Lernziele:* Bundler, Minitest, Rake, Aufbau eines Ruby-Projekts, der TDD-Zyklus im Kleinen.
 

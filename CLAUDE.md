@@ -102,14 +102,28 @@ abkürze. TDD ist hier das wichtigste Lernziel.
 
 ## Technische Leitplanken
 
-- **Ruby ≥ 3.1**, **Sinatra** für die Weboberfläche, **Puma** als Server
+- **Ruby ≥ 3.3**, **Sinatra** für die Weboberfläche, **Puma** als Server
   (später mit `workers 0`, weil ein Hintergrund-Thread genau einmal laufen muss).
 - **Minitest** für Tests, **Rake** als Task-Runner. Keine weiteren Gems ohne Begründung.
 - HTTP mit **Net::HTTP** aus der Standardbibliothek – bewusst ohne zusätzliche Gems,
   damit man sieht, was passiert.
 - Externe Systeme in Tests **nie echt aufrufen**: Test Doubles oder kleine lokale
   Fake-Server (Rack-Apps).
-- Später: **Standard** (`standardrb`) als Linter einführen, wenn es die erste Codebasis gibt.
+- **Standard** (`standardrb`) als Linter ab Story 0: `bundle exec rake` lässt Tests *und*
+  Linter laufen. Code-Stil regelt Standard – deshalb hier keine eigenen Stilregeln.
+
+### Ruby-Konventionen
+
+Nur Entscheidungen, die kein Linter treffen kann:
+
+- **Namespace:** Alles liegt unter `module Buildleafs`.
+- **Eine Klasse pro Datei**, Pfad folgt dem Namen:
+  `Buildleafs::BuildStatus` → `lib/buildleafs/build_status.rb`,
+  Test dazu → `test/buildleafs/build_status_test.rb`.
+- **Laden mit `require_relative`** – kein Autoloader (Zeitwerk), solange es ohne geht.
+- **Tests als `Minitest::Test`-Klassen** mit `test_…`-Methoden, nicht die Spec-DSL.
+- **Value Objects:** noch offen (eigene Klasse oder `Data.define`) – wird in Story 1
+  entschieden, wenn wir Gleichheit (`==`, `eql?`, `hash`) selbst verstanden haben.
 
 ## Architektur-Ziel (Clean Architecture, entsteht schrittweise)
 
