@@ -24,6 +24,8 @@ Das Repo ist öffentlich, damit CSD-Lerngruppen nachvollziehen können, wie es e
 - [Backlog](docs/backlog.md): Stories nach INVEST, mit dem jeweils genutzten Schnittmuster
 - [Architecture Decision Records](docs/adr/): wichtige Entscheidungen mit Kontext und
   verworfenen Alternativen
+- [Learning Log](docs/learning-log.md): was beim Bauen gelernt wurde, mit Beispielen,
+  Quellen und Fragen für die Lerngruppe
 - Git-History: kleine Commits nach [Conventional Commits](https://www.conventionalcommits.org/)
 
 ## On your machine
@@ -63,5 +65,6 @@ CLAUDE.md           Arbeitsweise, TDD-Regeln und Konventionen
 docs/
   backlog.md        Stories in der Reihenfolge, in der sie gebaut werden
   domain-notes.md   Fachwissen zu Nanoleaf, CircleCI, GitHub und smee.io
+  learning-log.md   Was gelernt wurde – für künftige Projekte und Lerngruppen
   adr/              Architecture Decision Records
 ```
