@@ -81,3 +81,51 @@ und eine Frage zum Diskutieren.
 - **Quelle:** Bundler-Dokumentation, *Rationale* (https://bundler.io/guides/rationale.html)
 - **Frage für die Lerngruppe:** Was genau passiert, wenn jemand `Gemfile.lock` nicht
   committet – und wann merkt man es?
+
+## 2026-11-20 – Der erste TDD-Zyklus
+
+### Rot hat Stufen – erst ein `F` prüft Verhalten
+
+- **Am Beispiel:** Vor dem ersten Test meldete `bundle exec rake` „0 runs“ mit
+  Exit-Code 0 – grün, ohne irgendetwas zu beweisen. Der erste Test für `BuildStatus`
+  ([65af8e8](https://github.com/jensen-und-komplizen/buildleafs/commit/65af8e8)) war
+  dann in Stufen rot: `LoadError` (Datei fehlt) → `E` (`ArgumentError`, weil
+  `new(:success)` keinen passenden Initializer fand) → `F` (die Assertion schlägt fehl).
+  Erst beim `F` lief der Test bis zur eigentlichen Prüfung. Vor jedem Lauf die Meldung
+  vorherzusagen, machte jede Stufe zum Lernmoment.
+- **Stolperstein:** Die Vorhersage „das sollte klappen“ stimmte nicht. Und das erste
+  `F` lag am Test selbst (`"successsful"`). Auch Tests können falsch sein – die Meldung
+  lesen, statt reflexhaft den Produktionscode zu ändern.
+- **Quelle:** Kent Beck, *Test-Driven Development: By Example*
+- **Frage für die Lerngruppe:** Woran erkennt ihr, dass ein Test aus dem *richtigen*
+  Grund rot ist?
+
+### Fake It – grün auf dem kürzesten Weg
+
+- **Am Beispiel:** `BuildStatus#to_s` gibt die Konstante `"successful"` zurück, der
+  Parameter `state` bleibt ungenutzt. Ehrlich wird der Code erst, wenn ein zweiter Test
+  (ein laufender Build) eine echte Implementierung erzwingt – *Triangulation*.
+- **Stolperstein:** Zuerst sollte `to_s` `""` liefern. Fake It heißt aber: genau den
+  erwarteten Wert als Konstante zurückgeben. Und Fake It ist eine Grün-Strategie –
+  erst der rote Test, dann der Fake.
+- **Quelle:** Kent Beck, *Test-Driven Development: By Example*, Teil III, „Green Bar
+  Patterns“ (Fake It, Triangulate, Obvious Implementation)
+- **Frage für die Lerngruppe:** Fake It fühlt sich an wie Schummeln. Was gewinnt man,
+  wenn man es trotzdem tut?
+
+### Tests vor dem Linter – und nur grüne Commits
+
+- **Am Beispiel:** `task default: %i[test standard]`
+  ([9b6f699](https://github.com/jensen-und-komplizen/buildleafs/commit/9b6f699)):
+  Rake bricht beim ersten Fehler ab, im Rot stören also keine Stilmeldungen. Standard
+  meldete sich erst bei Grün (Leerzeile, einfache Anführungszeichen, eingerückter
+  Magic Comment) – passend zur Refactor-Phase. Rote Zwischenstände werden nicht
+  committet: Jeder Commit soll grün sein (CI, `git bisect`, gepushte Historie wird nie
+  umgeschrieben). Den TDD-Rhythmus erzählt stattdessen der Commit-Body
+  ([65af8e8](https://github.com/jensen-und-komplizen/buildleafs/commit/65af8e8)).
+- **Stolperstein:** Die naheliegende Idee, den roten Test als eigenen Commit
+  festzuhalten.
+- **Quelle:** Chris Beams, *How to Write a Git Commit Message*, Regel 7 „Use the body
+  to explain what and why vs. how“ (https://cbea.ms/git-commit/)
+- **Frage für die Lerngruppe:** Gibt es Situationen, in denen ein roter Commit doch
+  sinnvoll ist – etwa auf einem eigenen Branch?

@@ -36,3 +36,4 @@ Bücher und Artikel, auf die Backlog, ADRs und Learning Log verweisen.
   (https://lizkeogh.com/2008/05/14/rip-as-a-i-want-so-that/)
 - Michael Nygard: *Documenting Architecture Decisions*
   (https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+- Chris Beams: *How to Write a Git Commit Message* (https://cbea.ms/git-commit/)
