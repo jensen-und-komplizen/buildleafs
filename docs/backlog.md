@@ -16,7 +16,7 @@ den Dreiecken, dann verbreitern.
 
 ## Vorbereitung
 
-- [ ] **0. Projekt aufsetzen** *(technische Voraussetzung, keine Nutzer-Story)*
+- [x] **0. Projekt aufsetzen** *(technische Voraussetzung, keine Nutzer-Story)*
   `.ruby-version`, Gemfile, Rakefile (Tests + Standard), `test/test_helper.rb`. Erster
   Test bewusst **rot** sehen, dann grün machen – damit ist bewiesen, dass die
   Test-Infrastruktur wirklich Fehler meldet. Danach `.circleci/config.yml`: CircleCI führt
